@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Income And Expenses Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <nav class="navbar navbar-expand-lg navbar-light w-100 m-0">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="./images/icon.png" alt="Expenses Logo" class="logo" />
+                    <h1 class="logo-heading text-primary">Income And Expenses Tracker</h1>
+                </a>
+                <button class="navbar-toggler header-btn-style d-md-none" type="button" data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav d-md-none ml-auto">
+                        <a class="nav-link active nav-text" href="#">Dashboard</a>
+                        <a class="nav-link nav-text" href="#">Transactions</a>
+                        <a class="nav-link nav-text" href="#">Budgets</a>
+                        <a class="nav-link nav-text" href="#">Reports</a>
+                        <a class="nav-link nav-text" href="#">Saving Goals</a>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div class="bg-container">
+            <div class="sidebar">
+                <img src="./images/money-bag.png" class="profile">
+                <h2 class="finance-heading">Finance Tracker</h2>
+                <ul class="sidebar-list">
+                    <li class="active-menu">
+                        <i class="fa-solid fa-house mr-2"></i>
+                        Dashboard
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-wallet mr-2"></i>
+                        Transactions
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-wallet mr-2"></i>
+                        Budgets
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-chart-column mr-2"></i>
+                        Reports
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-piggy-bank mr-2"></i>
+                        Saving Goals
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard">
+                <h2>Income And Expense Tracker</h2>
+                <div class="cards-container">
+                    <div class="card dashboard-card blue">
+                        <p>Total Balance</p>
+                        <h3 id="totalBalance">₹0</h3>
+                        <div class="footer">
+                            <i class="fa-solid fa-arrow-up-long"></i>
+                            <span>% of last month</span>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card green">
+                        <p>Monthly Income</p>
+                        <h3 id="monthlyIncome">₹0</h3>
+                        <div class="footer">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>% of last month</span>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card red">
+                        <p>Monthly Expenses</p>
+                        <h3 id="monthlyExpenses">₹0</h3>
+                        <div class="footer">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>% of last month</span>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card yellow">
+                        <p>Savings Rate</p>
+                        <h3 id="savingsRate">0%</h3>
+                        <div class="footer">
+                            <span>% of last month</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="d-flex jusify-content-around mt-2 flex-wrap">
+                    <section class="card input-card m-2">
+                        <h3 class="mb-3">Add Transaction</h3>
+                        <form class="form">
+                            <div class="d-flex flex-column">
+                                <label for="descriptionId">Description</label>
+                                <input type="text" id="descriptionId" class="form-control"
+                                    placeholder="Enter description">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <label for="amountId">Amount</label>
+                                <input type="number" id="amountId" class="form-control"
+                                    placeholder="+income / -expense">
+                            </div>
+                            <div class="mb-1">
+                                <label for="addTransaction">Category</label>
+                                <select class="form-control" id="addTransaction">
+                                    <option value="Food" selected checked>Food</option>
+                                    <option value="Groceries">Groceries</option>
+                                    <option value="Housing">Housing</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Transport">Transport</option>
+                                    <option value="Salary">Salary</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary add-transaction-btn mt-2" type="submit">Add</button>
+                        </form>
+                    </section>
+                    <section class="card chart-container m-2">
+                        <h3>Total Overview</h3>
+                        <canvas id="myBarGraph" class="section-card"></canvas>
+                    </section>
+                    <section class="card chart-container mr-2">
+                        <h3>Spending By Category</h3>
+                        <canvas id="pieChart"></canvas>
+                    </section>
+                    <section class="card chart-container m-2">
+                        <div class="d-flex flex-row justify-content-between">
+                            <h3>Transaction History</h3>
+                            <button class="btn btn-info" onclick="clearHistory()">clear</button>
+                        </div>
+                        <ul id="transactionHistoryId" class="transaction-history">
+
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./index.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
